@@ -2,6 +2,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
 import numpy as np
+import joblib
 
 df = pd.read_csv('dados.csv')
 X = df[['umidade', 'nutrientes', 'hora']]
@@ -25,3 +26,5 @@ amostras = pd.DataFrame({
 previsoes = model.predict(amostras)
 for i, row in amostras.iterrows():
     print(f"Horário: {int(row['hora'])}h | Umidade: {row['umidade']:.2f} | Nutrientes: {row['nutrientes']:.2f} => Precisa irrigar: {previsoes[i]}")
+
+joblib.dump(model, 'modelo_irrigacao.pkl')  # Salva o modelo treinado
